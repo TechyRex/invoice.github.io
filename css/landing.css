@@ -1,0 +1,152 @@
+/* General Landing Page Styles */
+.hero {
+  position: relative; /* Needed for absolute positioning */
+  background: 
+    linear-gradient(135deg, #0c59cc 0%, #bbd2f8 100%),
+    url('../assets/invoice.jpg') center/cover;
+  background-blend-mode: overlay;
+  padding:5% 0 5%; /* Adjust top padding to move content down */
+  padding-bottom: 2%;
+  min-height: 100vh; /* Ensures full viewport coverage */
+}
+
+.hero .container {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically centers content */
+}
+
+.hero-content {
+  max-width: 600px;
+  margin-top: 80px; /* Additional push if needed */
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #f8f9fa;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* Features Section */
+.features {
+  padding: 80px 0;
+  background-color: #fff;
+}
+
+.features h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #2c3e50;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.feature-card {
+  padding: 30px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+/* How It Works Section */
+.how-it-works {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+}
+
+.how-it-works h2 {
+  text-align: center;
+  margin-bottom: 50px;
+  color: #2c3e50;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.step {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background: #4a6ee0;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero {
+      padding: 60px 0;
+      text-align: center;
+  }
+  
+  .hero-content {
+      margin-bottom: 40px;
+  }
+  
+  .cta-buttons {
+      justify-content: center;
+  }
+  
+  .steps {
+      flex-direction: column;
+  }
+}
+

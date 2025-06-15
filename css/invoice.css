@@ -1,0 +1,237 @@
+/* Invoice Generator Styles */
+.invoice-generator {
+  padding: 40px 0;
+}
+
+.generator-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.design-panel {
+  flex: 1;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.panel-section {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.panel-section h3 {
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+#items-container {
+  margin-bottom: 15px;
+}
+
+.item-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.item-row input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.item-row .item-desc {
+  flex: 2;
+}
+
+.item-row .remove-item {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#add-item {
+  width: 100%;
+  padding: 10px;
+}
+
+.invoice-preview {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.preview-controls {
+  display: flex;
+  gap: 10px;
+}
+
+#invoice-template {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  min-height: 800px;
+}
+
+/* Invoice Template Styles */
+.invoice {
+  font-family: inherit;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.invoice-logo {
+  max-width: 150px;
+  max-height: 100px;
+}
+
+.invoice-title {
+  font-size: 2rem;
+  color: #4a6ee0;
+  margin-bottom: 5px;
+}
+
+.invoice-details {
+  text-align: right;
+}
+
+.invoice-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.invoice-from, .invoice-to {
+  flex: 1;
+}
+
+.invoice-items {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.invoice-items th {
+  text-align: left;
+  padding: 10px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+}
+
+.invoice-items td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.invoice-items .total-row {
+  font-weight: bold;
+  background: #f8f9fa;
+}
+
+.invoice-summary {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.invoice-totals {
+  width: 300px;
+}
+
+.invoice-totals table {
+  width: 100%;
+}
+
+.invoice-totals td {
+  padding: 8px;
+}
+
+.invoice-totals .total-label {
+  text-align: right;
+  font-weight: bold;
+}
+
+.invoice-totals .total-amount {
+  text-align: right;
+}
+
+.invoice-footer {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  text-align: center;
+  color: #7f8c8d;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .generator-container {
+      flex-direction: column;
+  }
+  
+  .design-panel {
+      max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .preview-controls {
+      flex-wrap: wrap;
+  }
+  
+  .invoice-header, .invoice-info {
+      flex-direction: column;
+  }
+  
+  .invoice-details {
+      text-align: left;
+      margin-top: 20px;
+  }
+}
