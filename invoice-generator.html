@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Designer | InvoiceGen</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/invoice.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">InvoiceGen</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="whatsapp-scheduler.html">Reminders</a></li>
+                    <li><a href="#" class="btn primary">Save Invoice</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="invoice-generator">
+        <div class="container">
+            <h1>Invoice Designer</h1>
+            <div class="generator-container">
+                <div class="design-panel">
+                    <div class="panel-section">
+                        <h3>Business Information</h3>
+                        <div class="form-group">
+                            <label for="business-name">Business Name</label>
+                            <input type="text" id="business-name" placeholder="Your Business Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="business-address">Address</label>
+                            <textarea id="business-address" rows="3" placeholder="Business Address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="business-contact">Contact Info</label>
+                            <input type="text" id="business-contact" placeholder="Phone/Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="business-logo">Logo URL</label>
+                            <input type="text" id="business-logo" placeholder="Paste image URL">
+                        </div>
+                    </div>
+
+                    <div class="panel-section">
+                        <h3>Client Information</h3>
+                        <div class="form-group">
+                            <label for="client-name">Client Name</label>
+                            <input type="text" id="client-name" placeholder="Client's Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="client-address">Client Address</label>
+                            <textarea id="client-address" rows="3" placeholder="Client's Address"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="panel-section">
+                        <h3>Invoice Details</h3>
+                        <div class="form-group">
+                            <label for="invoice-number">Invoice #</label>
+                            <input type="text" id="invoice-number" placeholder="INV-001">
+                        </div>
+                        <div class="form-group">
+                            <label for="invoice-date">Date</label>
+                            <input type="date" id="invoice-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" id="due-date">
+                        </div>
+                    </div>
+
+                    <div class="panel-section">
+                        <h3>Items</h3>
+                        <div id="items-container">
+                            <div class="item-row">
+                                <input type="text" class="item-desc" placeholder="Description">
+                                <input type="number" class="item-qty" placeholder="Qty" min="1">
+                                <input type="number" class="item-price" placeholder="Price" step="0.01">
+                                <button class="remove-item">×</button>
+                            </div>
+                        </div>
+                        <button id="add-item" class="btn secondary">Add Item</button>
+                    </div>
+
+                    <div class="panel-section">
+                        <h3>Payment Info</h3>
+                        <div class="form-group">
+                            <label for="payment-method">Payment Method</label>
+                            <select id="payment-method">
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="Credit Card">Credit Card</option>
+                                <option value="PayPal">PayPal</option>
+                                <option value="Cash">Cash</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="payment-details">Payment Details</label>
+                            <textarea id="payment-details" rows="3" placeholder="Bank account details or other payment instructions"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="panel-section">
+                        <h3>Design Options</h3>
+                        <div class="form-group">
+                            <label for="color-theme">Color Theme</label>
+                            <select id="color-theme">
+                                <option value="#4a6ee0">Blue</option>
+                                <option value="#2ecc71">Green</option>
+                                <option value="#e74c3c">Red</option>
+                                <option value="#9b59b6">Purple</option>
+                                <option value="#f39c12">Orange</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="font-style">Font Style</label>
+                            <select id="font-style">
+                                <option value="Arial, sans-serif">Arial</option>
+                                <option value="Helvetica, sans-serif">Helvetica</option>
+                                <option value="Georgia, serif">Georgia</option>
+                                <option value="'Times New Roman', serif">Times New Roman</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="invoice-preview">
+                    <div class="preview-controls">
+                        <button id="download-pdf" class="btn primary">Download PDF</button>
+                        <button id="send-email" class="btn secondary">Send via Email</button>
+                        <button id="setup-reminder" class="btn accent">Setup Reminder</button>
+                    </div>
+                    <div id="invoice-template">
+                        <!-- Invoice will be rendered here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">InvoiceGen</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 InvoiceGen. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/invoice.js"></script>
+    <!-- Add after your existing scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>
