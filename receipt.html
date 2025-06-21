@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Generator | ReceiptGen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/receipt.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">ReceiptGen</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="your-scheduler.html">Reminders</a></li>
+                    <li><a href="invoice-generator.html">Design Invoice</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="receipt-generator">
+      <div class="container">
+          <h1>Receipt Designer</h1>
+          <div class="generator-container">
+              <div class="design-panel">
+                  <!-- Business Information Section -->
+                  <div class="panel-section">
+                      <h3>Business Information</h3>
+                      <div class="form-group">
+                          <label for="business-name">Business Name</label>
+                          <input type="text" id="business-name" placeholder="Your Business Name">
+                      </div>
+                      <div class="form-group">
+                          <label for="business-address">Address</label>
+                          <textarea id="business-address" rows="3" placeholder="Business Address"></textarea>
+                      </div>
+                      <div class="form-group">
+                          <label for="business-email">Email</label>
+                          <input type="email" id="business-email" placeholder="business@example.com">
+                      </div>
+                      <div class="form-group">
+                          <label for="business-phone">Phone Number</label>
+                          <input type="tel" id="business-phone" placeholder="+1234567890">
+                      </div>
+                      <div class="form-group">
+                          <label for="business-logo">Logo</label>
+                          <input type="file" id="business-logo" accept="image/*">
+                      </div>
+                  </div>
+
+                  <!-- Customer Information Section -->
+                  <div class="panel-section">
+                      <h3>Customer Information</h3>
+                      <div class="form-group">
+                          <label for="customer-name">Customer Name</label>
+                          <input type="text" id="customer-name" placeholder="Customer's Name">
+                      </div>
+                      <div class="form-group">
+                          <label for="customer-email">Customer Email</label>
+                          <input type="email" id="customer-email" placeholder="customer@example.com">
+                      </div>
+                  </div>
+
+                  <!-- Receipt Details Section -->
+                  <div class="panel-section">
+                      <h3>Receipt Details</h3>
+                      <div class="form-group">
+                          <label for="receipt-number">Receipt #</label>
+                          <input type="text" id="receipt-number" placeholder="RCPT-001">
+                      </div>
+                      <div class="form-group">
+                          <label for="receipt-date">Date</label>
+                          <input type="date" id="receipt-date">
+                      </div>
+                      <div class="form-group">
+                          <label for="payment-method">Payment Method</label>
+                          <select id="payment-method">
+                              <option value="Cash">Cash</option>
+                              <option value="Credit Card">Credit Card</option>
+                              <option value="Debit Card">Debit Card</option>
+                              <option value="Bank Transfer">Bank Transfer</option>
+                              <option value="Mobile Payment">Mobile Payment</option>
+                          </select>
+                      </div>
+                      <div class="form-group">
+                          <label for="tax-rate">Tax Rate (%)</label>
+                          <input type="number" id="tax-rate" placeholder="10" min="0" max="100" step="0.1" value="10">
+                      </div>
+                      <div class="form-group">
+                          <label for="currency">Currency</label>
+                          <select id="currency">
+                              <option value="$">USD ($)</option>
+                              <option value="€">EUR (€)</option>
+                              <option value="£">GBP (£)</option>
+                              <option value="¥">JPY (¥)</option>
+                              <option value="₹">INR (₹)</option>
+                              <option value="₦">NGN (₦)</option>
+                              <option value="R">ZAR (R)</option>
+                              <option value="₱">PHP (₱)</option>
+                              <option value="C$">CAD (C$)</option>
+                              <option value="A$">AUD (A$)</option>
+                          </select>
+                      </div>
+                  </div>
+
+                  <!-- Items Section -->
+                  <div class="panel-section">
+                      <h3>Items</h3>
+                      <div id="items-container">
+                          <div class="item-row">
+                              <input type="text" class="item-desc" placeholder="Description">
+                              <input type="number" class="item-qty" placeholder="Qty" min="1" value="1">
+                              <input type="number" class="item-price" placeholder="Price" step="0.01">
+                              <button class="remove-item">×</button>
+                          </div>
+                      </div>
+                      <button id="add-item" class="btn secondary">Add Item</button>
+                  </div>
+
+                  <!-- Design Options Section (NEW) -->
+                  <div class="panel-section">
+                      <h3>Design Options</h3>
+                      <div class="form-group">
+                          <label for="font-style">Font Style</label>
+                          <select id="font-style">
+                              <option value="Arial, sans-serif">Arial</option>
+                              <option value="Helvetica, sans-serif">Helvetica</option>
+                              <option value="Georgia, serif">Georgia</option>
+                              <option value="'Times New Roman', serif">Times New Roman</option>
+                          </select>
+                      </div>
+                  </div>
+                  
+                  <!-- Template Options Section -->
+                  <div class="panel-section">
+                      <h3>Template Options</h3>
+                      <div class="template-options">
+                          <div class="template-thumbnail" data-template="simple">
+                              <div class="thumbnail-preview simple-theme"></div>
+                              <span>Simple</span>
+                          </div>
+                          <div class="template-thumbnail" data-template="modern">
+                              <div class="thumbnail-preview modern-theme"></div>
+                              <span>Modern</span>
+                          </div>
+                          <div class="template-thumbnail" data-template="elegant">
+                              <div class="thumbnail-preview elegant-theme"></div>
+                              <span>Elegant</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Color Selection Section -->
+                  <div class="panel-section">
+                      <h3>Color Options</h3>
+                      <div class="color-options">
+                          <div class="color-option" data-color="#4a6ee0" style="background-color: #4a6ee0;"></div>
+                          <div class="color-option" data-color="#2ecc71" style="background-color: #2ecc71;"></div>
+                          <div class="color-option" data-color="#e74c3c" style="background-color: #e74c3c;"></div>
+                          <div class="color-option" data-color="#9b59b6" style="background-color: #9b59b6;"></div>
+                          <div class="color-option" data-color="#f39c12" style="background-color: #f39c12;"></div>
+                          <div class="color-option" data-color="#1abc9c" style="background-color: #1abc9c;"></div>
+                          <div class="color-option" data-color="#34495e" style="background-color: #34495e;"></div>
+                          <div class="color-option" data-color="#e67e22" style="background-color: #e67e22;"></div>
+                      </div>
+                      <div class="form-group">
+                          <label for="custom-color">Custom Color</label>
+                          <input type="color" id="custom-color" value="#4a6ee0">
+                      </div>
+                  </div>
+              </div>
+
+              <div class="receipt-preview">
+                  <div class="preview-controls">
+                      <button id="download-pdf" class="btn primary">Download PDF</button>
+                      <button id="send-email" class="btn secondary">Send via Email</button>
+                      <button id="print-receipt" class="btn accent">Print Receipt</button>
+                  </div>
+                  <div id="receipt-template" class="simple">
+                      <!-- Receipt will be rendered here by JavaScript -->
+                  </div>
+              </div>
+          </div>
+      </div>
+  </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">ReceiptGen</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; <span id="current-year"></span> ReceiptGen. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="js/receipt.js"></script>
+</body>
+</html>

@@ -1,18 +1,18 @@
-// invoice.js
+// receipt.js
 document.addEventListener('DOMContentLoaded', function() {
   // Set current year in footer
   document.getElementById('current-year').textContent = new Date().getFullYear();
 
   // Set today's date as default
   const today = new Date().toISOString().split('T')[0];
-  document.getElementById('invoice-date').value = today;
+  document.getElementById('receipt-date').value = today;
 
-  // Generate random invoice number
-  document.getElementById('invoice-number').value = 'INV-' + Math.floor(1000 + Math.random() * 9000);
+  // Generate random receipt number
+  document.getElementById('receipt-number').value = 'RCPT-' + Math.floor(1000 + Math.random() * 9000);
 
   // Template and color selection
   const templateThumbnails = document.querySelectorAll('.template-thumbnail');
-  const invoiceTemplate = document.getElementById('invoice-template');
+  const receiptTemplate = document.getElementById('receipt-template');
   let selectedColor = '#4a6ee0';
   let selectedTemplate = 'simple';
 
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
           templateThumbnails.forEach(t => t.classList.remove('active'));
           this.classList.add('active');
           selectedTemplate = this.getAttribute('data-template');
-          updateInvoicePreview();
+          updateReceiptPreview();
       });
   });
 
@@ -37,14 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
       option.addEventListener('click', function() {
           selectedColor = this.getAttribute('data-color');
           document.getElementById('custom-color').value = selectedColor;
-          updateInvoicePreview();
+          updateReceiptPreview();
       });
   });
 
   // Handle custom color selection
   document.getElementById('custom-color').addEventListener('input', function() {
       selectedColor = this.value;
-      updateInvoicePreview();
+      updateReceiptPreview();
   });
 
   // Handle logo upload
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const reader = new FileReader();
           reader.onload = function(event) {
               logoPreviewUrl = event.target.result;
-              updateInvoicePreview();
+              updateReceiptPreview();
           };
           reader.readAsDataURL(file);
       }
@@ -78,21 +78,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Add event listeners to new inputs
       itemRow.querySelectorAll('input').forEach(input => {
-          input.addEventListener('input', updateInvoicePreview);
+          input.addEventListener('input', updateReceiptPreview);
       });
 
       // Add event listener to remove button
       itemRow.querySelector('.remove-item').addEventListener('click', function() {
           itemRow.remove();
-          updateInvoicePreview();
+          updateReceiptPreview();
       });
 
-      updateInvoicePreview();
+      updateReceiptPreview();
   });
 
   // Add event listeners to all form inputs
   document.querySelectorAll('.design-panel input, .design-panel textarea, .design-panel select').forEach(input => {
-      input.addEventListener('input', updateInvoicePreview);
+      input.addEventListener('input', updateReceiptPreview);
   });
 
   // Add font style selection functionality
@@ -101,26 +101,21 @@ let selectedFontFamily = 'Arial, sans-serif'; // Default font
 // Handle font style selection
 document.getElementById('font-style').addEventListener('change', function() {
     selectedFontFamily = this.value;
-    updateInvoicePreview();
+    updateReceiptPreview();
 });
 
-  // Replace the existing function with this updated version:
-
-function updateInvoicePreview() {
+  function updateReceiptPreview() {
     const businessName = document.getElementById('business-name').value || 'Your Business';
     const businessAddress = document.getElementById('business-address').value || '123 Business St, City, Country';
     const businessEmail = document.getElementById('business-email').value || 'business@example.com';
     const businessPhone = document.getElementById('business-phone').value || '+1234567890';
     
-    const clientName = document.getElementById('client-name').value || 'Client Name';
-    const clientEmail = document.getElementById('client-email').value || 'client@example.com';
-    const clientAddress = document.getElementById('client-address').value || '123 Client St, City, Country';
+    const customerName = document.getElementById('customer-name').value || 'Customer Name';
+    const customerEmail = document.getElementById('customer-email').value || 'customer@example.com';
     
-    const invoiceNumber = document.getElementById('invoice-number').value || 'INV-001';
-    const invoiceDate = formatDate(document.getElementById('invoice-date').value) || formatDate(today);
-    const dueDate = formatDate(document.getElementById('due-date').value) || '';
-    const paymentMethod = document.getElementById('payment-method').value || 'Bank Transfer';
-    const paymentDetails = document.getElementById('payment-details').value || '';
+    const receiptNumber = document.getElementById('receipt-number').value || 'RCPT-001';
+    const receiptDate = formatDate(document.getElementById('receipt-date').value) || formatDate(today);
+    const paymentMethod = document.getElementById('payment-method').value || 'Cash';
     const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
     const currencySymbol = document.getElementById('currency').value || '$';
     
@@ -141,38 +136,35 @@ function updateInvoicePreview() {
     const tax = subtotal * (taxRate / 100);
     const total = subtotal + tax;
     
-    // Apply font style to the entire invoice
+    // Apply font style to the entire receipt
     const fontStyle = `font-family: ${selectedFontFamily};`;
     
     // Generate HTML based on template
-    let invoiceHTML = '';
+    let receiptHTML = '';
     
     if (selectedTemplate === 'simple') {
-        invoiceHTML = `
+        receiptHTML = `
             <div style="${fontStyle}">
-                <div class="invoice-header" style="border-bottom: 2px solid ${selectedColor}; margin-bottom: 20px; padding-bottom: 15px;">
+                <div class="receipt-header" style="border-bottom: 2px solid ${selectedColor}; margin-bottom: 20px; padding-bottom: 15px;">
                     ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 80px; margin-bottom: 15px;">` : ''}
                     <h2 style="color: ${selectedColor}; ${fontStyle}">${businessName}</h2>
                     <p style="${fontStyle}">${businessAddress}</p>
                     <p style="${fontStyle}">${businessEmail}<br>${businessPhone}</p>
                 </div>
                 
-                <div class="invoice-meta" style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                <div class="receipt-meta" style="display: flex; justify-content: space-between; margin-bottom: 30px;">
                     <div style="${fontStyle}">
-                        <p><strong>Invoice #:</strong> ${invoiceNumber}</p>
-                        <p><strong>Date:</strong> ${invoiceDate}</p>
-                        ${dueDate ? `<p><strong>Due Date:</strong> ${dueDate}</p>` : ''}
+                        <p><strong>Receipt #:</strong> ${receiptNumber}</p>
+                        <p><strong>Date:</strong> ${receiptDate}</p>
                         <p><strong>Payment Method:</strong> ${paymentMethod}</p>
                     </div>
                     <div style="${fontStyle}">
-                        <p><strong>Bill To:</strong></p>
-                        <p>${clientName}</p>
-                        <p>${clientAddress}</p>
-                        <p>${clientEmail}</p>
+                        <p><strong>Customer:</strong> ${customerName}</p>
+                        <p><strong>Email:</strong> ${customerEmail}</p>
                     </div>
                 </div>
                 
-                <table class="invoice-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <table class="receipt-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px;">
                     <thead>
                         <tr style="background-color: ${selectedColor}; color: #34495e;">
                             <th style="padding: 12px; text-align: left; ${fontStyle}">Description</th>
@@ -193,29 +185,22 @@ function updateInvoicePreview() {
                     </tbody>
                 </table>
                 
-                <div class="invoice-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
+                <div class="receipt-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
                     <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
                     ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
                     <p style="font-size: 18px; font-weight: bold;"><strong>Total: ${currencySymbol}${total.toFixed(2)}</strong></p>
                 </div>
                 
-                ${paymentDetails ? `
-                <div class="payment-info" style="margin-bottom: 20px; ${fontStyle}">
-                    <h3 style="color: ${selectedColor};">Payment Information</h3>
-                    <p>${paymentDetails}</p>
-                </div>
-                ` : ''}
-                
-                <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
+                <div class="receipt-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
                     <p>Thank you for your business!</p>
                     <p style="font-size: 14px; color: #666;">${businessName} | ${businessEmail} | ${businessPhone}</p>
                 </div>
             </div>
         `;
     } else if (selectedTemplate === 'modern') {
-        invoiceHTML = `
+        receiptHTML = `
             <div style="${fontStyle}">
-                <div class="invoice-header" style="display: flex; align-items: center; border-left: 4px solid ${selectedColor}; padding-left: 20px; margin-bottom: 30px;">
+                <div class="receipt-header" style="display: flex; align-items: center; border-left: 4px solid ${selectedColor}; padding-left: 20px; margin-bottom: 30px;">
                     ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 60px; margin-right: 20px;">` : ''}
                     <div style="${fontStyle}">
                         <h2 style="color: ${selectedColor}; margin: 0; ${fontStyle}">${businessName}</h2>
@@ -224,40 +209,30 @@ function updateInvoicePreview() {
                     </div>
                 </div>
                 
-                <div class="invoice-meta" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; ${fontStyle}">
+                <div class="receipt-meta" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; ${fontStyle}">
                     <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">INVOICE #</span>
-                        <span class="meta-value" style="${fontStyle}">${invoiceNumber}</span>
+                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Receipt #</span>
+                        <span class="meta-value" style="${fontStyle}">${receiptNumber}</span>
                     </div>
                     <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
                         <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Date</span>
-                        <span class="meta-value" style="${fontStyle}">${invoiceDate}</span>
+                        <span class="meta-value" style="${fontStyle}">${receiptDate}</span>
                     </div>
-                    ${dueDate ? `
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Due Date</span>
-                        <span class="meta-value" style="${fontStyle}">${dueDate}</span>
-                    </div>
-                    ` : ''}
                     <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
                         <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Payment Method</span>
                         <span class="meta-value" style="${fontStyle}">${paymentMethod}</span>
                     </div>
                     <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Bill To</span>
-                        <span class="meta-value" style="${fontStyle}">${clientName}</span>
+                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Customer</span>
+                        <span class="meta-value" style="${fontStyle}">${customerName}</span>
                     </div>
                     <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
                         <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Email</span>
-                        <span class="meta-value" style="${fontStyle}">${clientEmail}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Address</span>
-                        <span class="meta-value" style="${fontStyle}">${clientAddress}</span>
+                        <span class="meta-value" style="${fontStyle}">${customerEmail}</span>
                     </div>
                 </div>
                 
-                <table class="invoice-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <table class="receipt-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px;">
                     <thead>
                         <tr style="background-color: ${selectedColor}; color: white;">
                             <th style="padding: 12px; text-align: left; ${fontStyle}">Item</th>
@@ -278,51 +253,38 @@ function updateInvoicePreview() {
                     </tbody>
                 </table>
                 
-                <div class="invoice-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
+                <div class="receipt-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
                     <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
                     ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
                     <p style="font-size: 18px; font-weight: bold;">Total: ${currencySymbol}${total.toFixed(2)}</p>
                 </div>
                 
-                ${paymentDetails ? `
-                <div class="payment-info" style="margin-bottom: 20px; ${fontStyle}">
-                    <h3 style="color: ${selectedColor};">Payment Instructions</h3>
-                    <p>${paymentDetails}</p>
-                </div>
-                ` : ''}
-                
-                <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
-                    <p>Thank you for your business!</p>
+                <div class="receipt-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
+                    <p>Thank you for your purchase!</p>
                     <p style="font-size: 14px; color: #666;">For any questions, please contact ${businessEmail} or ${businessPhone}</p>
                 </div>
             </div>
         `;
     } else if (selectedTemplate === 'elegant') {
-        invoiceHTML = `
+        receiptHTML = `
             <div style="${fontStyle}">
-                <div class="invoice-header" style="text-align: center; margin-bottom: 30px; ${fontStyle}">
+                <div class="receipt-header" style="text-align: center; margin-bottom: 30px; ${fontStyle}">
                     ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 70px; margin-bottom: 15px;">` : ''}
                     <h2 style="color: ${selectedColor}; margin: 10px 0; ${fontStyle}">${businessName}</h2>
                     <p style="margin: 5px 0; ${fontStyle}">${businessAddress}</p>
                     <p style="margin: 5px 0; ${fontStyle}">${businessEmail}<br>${businessPhone}</p>
                 </div>
                 
-                <div class="invoice-meta" style="display: flex; justify-content: space-between; margin-bottom: 30px; ${fontStyle}">
+                <div class="receipt-meta" style="display: flex; justify-content: space-between; margin-bottom: 30px; ${fontStyle}">
                     <div class="meta-column">
                         <div class="meta-row" style="margin-bottom: 10px;">
-                            <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Invoice Number</div>
-                            <div class="meta-value" style="${fontStyle}">${invoiceNumber}</div>
+                            <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Receipt Number</div>
+                            <div class="meta-value" style="${fontStyle}">${receiptNumber}</div>
                         </div>
                         <div class="meta-row" style="margin-bottom: 10px;">
                             <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Date</div>
-                            <div class="meta-value" style="${fontStyle}">${invoiceDate}</div>
+                            <div class="meta-value" style="${fontStyle}">${receiptDate}</div>
                         </div>
-                        ${dueDate ? `
-                        <div class="meta-row" style="margin-bottom: 10px;">
-                            <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Due Date</div>
-                            <div class="meta-value" style="${fontStyle}">${dueDate}</div>
-                        </div>
-                        ` : ''}
                         <div class="meta-row" style="margin-bottom: 10px;">
                             <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Payment Method</div>
                             <div class="meta-value" style="${fontStyle}">${paymentMethod}</div>
@@ -330,23 +292,19 @@ function updateInvoicePreview() {
                     </div>
                     <div class="meta-column">
                         <div class="meta-row" style="margin-bottom: 10px;">
-                            <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Bill To</div>
-                            <div class="meta-value" style="${fontStyle}">${clientName}</div>
+                            <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Customer</div>
+                            <div class="meta-value" style="${fontStyle}">${customerName}</div>
                         </div>
                         <div class="meta-row" style="margin-bottom: 10px;">
                             <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Email</div>
-                            <div class="meta-value" style="${fontStyle}">${clientEmail}</div>
-                        </div>
-                        <div class="meta-row" style="margin-bottom: 10px;">
-                            <div class="meta-label" style="font-weight: bold; color: #666; ${fontStyle}">Address</div>
-                            <div class="meta-value" style="${fontStyle}">${clientAddress}</div>
+                            <div class="meta-value" style="${fontStyle}">${customerEmail}</div>
                         </div>
                     </div>
                 </div>
                 
-                <table class="invoice-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px; border: 1px solid #ddd;">
+                <table class="receipt-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px; border: 1px solid #ddd;">
                     <thead>
-                        <tr style="background-color: #f8f9fa; border-bottom: 2px solid ${selectedColor};">
+                        <tr style="background-color: #f8f9fa;  border-bottom: 2px solid ${selectedColor};">
                             <th style="padding: 12px; text-align: left; ${fontStyle}">Description</th>
                             <th style="padding: 12px; text-align: center; ${fontStyle}">Qty</th>
                             <th style="padding: 12px; text-align: right; ${fontStyle}">Unit Price</th>
@@ -365,7 +323,7 @@ function updateInvoicePreview() {
                     </tbody>
                 </table>
                 
-                <div class="invoice-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
+                <div class="receipt-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
                     <div class="total-row" style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px 0; border-bottom: 1px solid #eee;">
                         <div class="total-label" style="font-weight: bold; ${fontStyle}">Subtotal</div>
                         <div class="total-value" style="${fontStyle}">${currencySymbol}${subtotal.toFixed(2)}</div>
@@ -376,31 +334,23 @@ function updateInvoicePreview() {
                         <div class="total-value" style="${fontStyle}">${currencySymbol}${tax.toFixed(2)}</div>
                     </div>
                     ` : ''}
-                    <div class="total-row" style="display: flex; justify-content: space-between; padding: 12px 0; border-top: 2px solid ${selectedColor}; font-size: 18px; font-weight: bold;">
-                        <div class="total-label" style="color: ${selectedColor}; ${fontStyle}">Total</div>
-                        <div class="total-value" style="color: ${selectedColor}; ${fontStyle}">${currencySymbol}${total.toFixed(2)}</div>
+                    <div class="total-row" style="display: flex; justify-content: space-between; margin-bottom: 8px; padding: 8px 0; border-bottom: 2px solid ${selectedColor};">
+                        <div class="total-label" style="font-weight: bold; font-size: 18px; ${fontStyle}">Total</div>
+                        <div class="total-value" style="font-weight: bold; font-size: 18px; ${fontStyle}">${currencySymbol}${total.toFixed(2)}</div>
                     </div>
                 </div>
                 
-                ${paymentDetails ? `
-                <div class="payment-info" style="margin-bottom: 20px; ${fontStyle}">
-                    <h3 style="color: ${selectedColor};">Payment Details</h3>
-                    <p>${paymentDetails}</p>
-                </div>
-                ` : ''}
-                
-                <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
+                <div class="receipt-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
                     <p>Thank you for choosing ${businessName}</p>
-                    <p style="font-size: 14px; color: #666;">For any questions about this invoice, please contact us at ${businessEmail} or call ${businessPhone}</p>
+                    <p style="font-size: 14px; color: #666;">For any questions about this receipt, please contact us at ${businessEmail} or call ${businessPhone}</p>
                 </div>
             </div>
         `;
     }
     
-    invoiceTemplate.className = selectedTemplate;
-    invoiceTemplate.innerHTML = invoiceHTML;
+    receiptTemplate.className = selectedTemplate;
+    receiptTemplate.innerHTML = receiptHTML;
 }
-
   // Format date
   function formatDate(dateString) {
       if (!dateString) return '';
@@ -415,9 +365,9 @@ function updateInvoicePreview() {
   // Download PDF
   document.getElementById('download-pdf').addEventListener('click', function() {
       const { jsPDF } = window.jspdf;
-      const invoice = document.getElementById('invoice-template');
+      const receipt = document.getElementById('receipt-template');
       
-      html2canvas(invoice, {
+      html2canvas(receipt, {
           scale: 2,
           logging: false,
           useCORS: true
@@ -428,19 +378,19 @@ function updateInvoicePreview() {
           const imgHeight = canvas.height * imgWidth / canvas.width;
           
           pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-          pdf.save(`${document.getElementById('invoice-number').value || 'invoice'}.pdf`);
+          pdf.save(`${document.getElementById('receipt-number').value || 'receipt'}.pdf`);
       });
   });
 
-  // Print invoice
-  document.getElementById('print-invoice').addEventListener('click', function() {
-      const invoice = document.getElementById('invoice-template');
+  // Print receipt
+  document.getElementById('print-receipt').addEventListener('click', function() {
+      const receipt = document.getElementById('receipt-template');
       const printWindow = window.open('', '', 'width=800,height=600');
       printWindow.document.write(`
           <!DOCTYPE html>
           <html>
           <head>
-              <title>Print Invoice</title>
+              <title>Print Receipt</title>
               <style>
                   body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
                   @media print {
@@ -450,7 +400,7 @@ function updateInvoicePreview() {
               </style>
           </head>
           <body>
-              ${invoice.innerHTML}
+              ${receipt.innerHTML}
               <script>
                   window.onload = function() {
                       window.print();
@@ -463,33 +413,29 @@ function updateInvoicePreview() {
       printWindow.document.close();
   });
 
-  // Improved Send via email functionality for invoice - replace the existing email function in your invoice.js
+  // Improved Send via email functionality - replace the existing email function in your receipt.js
 
 document.getElementById('send-email').addEventListener('click', function(e) {
   e.preventDefault();
   
-  // 1. Validate client email
-  const clientEmail = document.getElementById('client-email').value;
-  if (!clientEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clientEmail)) {
-      alert('Please enter a valid client email address');
+  // 1. Validate customer email
+  const customerEmail = document.getElementById('customer-email').value;
+  if (!customerEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
+      alert('Please enter a valid customer email address');
       return;
   }
 
-  // 2. Gather all invoice data
+  // 2. Gather all receipt data
   const businessName = document.getElementById('business-name').value || 'Your Business';
   const businessEmail = document.getElementById('business-email').value || 'business@example.com';
   const businessPhone = document.getElementById('business-phone').value || '';
-  const businessAddress = document.getElementById('business-address').value || '';
-  const invoiceNumber = document.getElementById('invoice-number').value || 'INV-001';
-  const invoiceDate = formatDate(document.getElementById('invoice-date').value) || formatDate(new Date().toISOString().split('T')[0]);
-  const dueDate = document.getElementById('due-date').value ? formatDate(document.getElementById('due-date').value) : '';
-  const paymentMethod = document.getElementById('payment-method').value || 'Bank Transfer';
-  const paymentDetails = document.getElementById('payment-details').value || '';
-  const clientName = document.getElementById('client-name').value || 'Valued Client';
-  const clientAddress = document.getElementById('client-address').value || '';
+  const receiptNumber = document.getElementById('receipt-number').value || 'RCPT-001';
+  const receiptDate = formatDate(document.getElementById('receipt-date').value) || formatDate(new Date().toISOString().split('T')[0]);
+  const paymentMethod = document.getElementById('payment-method').value || 'Cash';
+  const customerName = document.getElementById('customer-name').value || 'Valued Customer';
   const currencySymbol = document.getElementById('currency').value || '$';
 
-  // 3. Calculate totals and build items list
+  // 3. Calculate totals
   let subtotal = 0;
   let itemsText = '';
   
@@ -508,45 +454,34 @@ document.getElementById('send-email').addEventListener('click', function(e) {
   const totalAmount = subtotal + tax;
 
   // 4. Create comprehensive email content
-  const subject = `Invoice ${invoiceNumber} from ${businessName}`;
+  const subject = `Receipt ${receiptNumber} from ${businessName}`;
   
-  const body = `Dear ${clientName},
+  const body = `Dear ${customerName},
 
-I hope this email finds you well. Please find your invoice details below:
+Thank you for your business! Please find the details of your purchase below:
 
-INVOICE DETAILS
+RECEIPT DETAILS
 ===============
-Invoice Number: ${invoiceNumber}
-Invoice Date: ${invoiceDate}
-${dueDate ? `Due Date: ${dueDate}\n` : ''}Payment Method: ${paymentMethod}
+Receipt Number: ${receiptNumber}
+Date: ${receiptDate}
+Payment Method: ${paymentMethod}
 
 BUSINESS INFORMATION
 ===================
 ${businessName}
-${businessAddress ? `${businessAddress}\n` : ''}Email: ${businessEmail}
+Email: ${businessEmail}
 ${businessPhone ? `Phone: ${businessPhone}` : ''}
 
-CLIENT INFORMATION
-==================
-${clientName}
-${clientAddress ? `${clientAddress}\n` : ''}${clientEmail}
-
-ITEMS/SERVICES
-==============
+ITEMS PURCHASED
+===============
 ${itemsText}
 
 PAYMENT SUMMARY
 ===============
 Subtotal: ${currencySymbol}${subtotal.toFixed(2)}
-${taxRate > 0 ? `Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}\n` : ''}Total Amount Due: ${currencySymbol}${totalAmount.toFixed(2)}
+${taxRate > 0 ? `Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}\n` : ''}Total: ${currencySymbol}${totalAmount.toFixed(2)}
 
-${paymentDetails ? `PAYMENT INSTRUCTIONS
-===================
-${paymentDetails}
-
-` : ''}Thank you for your business! Please remit payment by the due date specified above. 
-
-If you have any questions about this invoice, please don't hesitate to contact us at ${businessEmail}${businessPhone ? ` or ${businessPhone}` : ''}.
+Thank you for choosing ${businessName}! If you have any questions about this receipt, please don't hesitate to contact us.
 
 Best regards,
 ${businessName}
@@ -557,15 +492,15 @@ ${businessPhone ? businessPhone : ''}`;
   const emailOptions = [
       {
           name: 'Gmail',
-          url: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(clientEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+          url: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(customerEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
       },
       {
           name: 'Outlook',
-          url: `https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(clientEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+          url: `https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(customerEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
       },
       {
           name: 'Default Mail Client',
-          url: `mailto:${encodeURIComponent(clientEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+          url: `mailto:${encodeURIComponent(customerEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
       }
   ];
 
@@ -573,7 +508,7 @@ ${businessPhone ? businessPhone : ''}`;
   function tryEmailClient(index = 0) {
       if (index >= emailOptions.length) {
           // If all email clients fail, show manual copy option
-          showEmailFallback(clientEmail, subject, body);
+          showEmailFallback(customerEmail, subject, body);
           return;
       }
 
@@ -587,7 +522,7 @@ ${businessPhone ? businessPhone : ''}`;
               tryEmailClient(index + 1);
           } else {
               // Success! Show confirmation
-              showEmailSuccess(clientEmail);
+              showEmailSuccess(customerEmail);
           }
       }, 1000);
   }
@@ -597,7 +532,7 @@ ${businessPhone ? businessPhone : ''}`;
 });
 
 // Helper function to show success message
-function showEmailSuccess(clientEmail) {
+function showEmailSuccess(customerEmail) {
   const modal = document.createElement('div');
   modal.style.cssText = `
       position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
@@ -608,8 +543,8 @@ function showEmailSuccess(clientEmail) {
   modal.innerHTML = `
       <div style="background: white; padding: 30px; border-radius: 10px; max-width: 400px; text-align: center;">
           <h3 style="color: #4a6ee0; margin-bottom: 15px;">✓ Email Opened</h3>
-          <p>Your email client should now be open with the invoice ready to send to:</p>
-          <p style="font-weight: bold; color: #333;">${clientEmail}</p>
+          <p>Your email client should now be open with the receipt ready to send to:</p>
+          <p style="font-weight: bold; color: #333;">${customerEmail}</p>
           <p style="font-size: 14px; color: #666; margin-top: 15px;">
               Please review the email content and click send in your email client.
           </p>
@@ -625,7 +560,7 @@ function showEmailSuccess(clientEmail) {
 }
 
 // Helper function to show fallback options when email clients fail
-function showEmailFallback(clientEmail, subject, body) {
+function showEmailFallback(customerEmail, subject, body) {
   const modal = document.createElement('div');
   modal.style.cssText = `
       position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
@@ -642,7 +577,7 @@ function showEmailFallback(clientEmail, subject, body) {
               <h4>Option 1: Copy Email Content</h4>
               <p>Copy the content below and paste it into your preferred email client:</p>
               <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 10px 0;">
-                  <strong>To:</strong> ${clientEmail}<br>
+                  <strong>To:</strong> ${customerEmail}<br>
                   <strong>Subject:</strong> ${subject}
               </div>
               <textarea readonly style="width: 100%; height: 200px; border: 1px solid #ddd; 
@@ -657,13 +592,13 @@ function showEmailFallback(clientEmail, subject, body) {
           <div style="margin: 20px 0;">
               <h4>Option 2: Try Email Links</h4>
               <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                  <a href="mailto:${encodeURIComponent(clientEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}" 
+                  <a href="mailto:${encodeURIComponent(customerEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}" 
                      style="background: #007bff; color: white; padding: 10px 15px; text-decoration: none; 
                             border-radius: 5px; display: inline-block;">Default Mail App</a>
-                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(clientEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}" 
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(customerEmail)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}" 
                      target="_blank" style="background: #db4437; color: white; padding: 10px 15px; 
                             text-decoration: none; border-radius: 5px; display: inline-block;">Gmail</a>
-                  <a href="https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(clientEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}" 
+                  <a href="https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(customerEmail)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}" 
                      target="_blank" style="background: #0078d4; color: white; padding: 10px 15px; 
                             text-decoration: none; border-radius: 5px; display: inline-block;">Outlook</a>
               </div>
@@ -703,32 +638,20 @@ function copyToClipboard(text) {
       alert('Email content copied to clipboard!');
   });
 }
-
-// Helper function to format date (make sure this exists in your invoice.js)
-function formatDate(dateString) {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-}
-
-  // Save invoice
-  //document.querySelector('.main-header .btn.primary').addEventListener('click', function() {
-      //alert('Invoice saved! In a real application, this would save to your database.');
+  // Save receipt
+  //document.getElementById('save-receipt').addEventListener('click', function() {
+      //alert('Receipt saved! In a real application, this would save to your database.');
   //});
 
   // Initialize with one item row
   const initialItemRow = document.querySelector('.item-row');
   initialItemRow.querySelectorAll('input').forEach(input => {
-      input.addEventListener('input', updateInvoicePreview);
+      input.addEventListener('input', updateReceiptPreview);
   });
   initialItemRow.querySelector('.remove-item').addEventListener('click', function() {
       initialItemRow.remove();
-      updateInvoicePreview();
+      updateReceiptPreview();
   });
   
-  updateInvoicePreview();
+  updateReceiptPreview();
 });

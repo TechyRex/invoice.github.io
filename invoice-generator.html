@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Designer | InvoiceGen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/invoice.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,8 +16,8 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="whatsapp-scheduler.html">Reminders</a></li>
-                    <li><a href="#" class="btn primary">Save Invoice</a></li>
+                    <li><a href="your-scheduler.html">Reminders</a></li>
+                    <li><a href="receipt.html">Design Receipt</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,12 +39,16 @@
                             <textarea id="business-address" rows="3" placeholder="Business Address"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="business-contact">Contact Info</label>
-                            <input type="text" id="business-contact" placeholder="Phone/Email">
+                            <label for="business-email">Email</label>
+                            <input type="email" id="business-email" placeholder="business@example.com">
                         </div>
                         <div class="form-group">
-                            <label for="business-logo">Logo URL</label>
-                            <input type="text" id="business-logo" placeholder="Paste image URL">
+                            <label for="business-phone">Phone Number</label>
+                            <input type="tel" id="business-phone" placeholder="+1234567890">
+                        </div>
+                        <div class="form-group">
+                            <label for="business-logo">Logo</label>
+                            <input type="file" id="business-logo" accept="image/*">
                         </div>
                     </div>
 
@@ -52,6 +57,10 @@
                         <div class="form-group">
                             <label for="client-name">Client Name</label>
                             <input type="text" id="client-name" placeholder="Client's Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="client-email">Client Email</label>
+                            <input type="email" id="client-email" placeholder="client@example.com">
                         </div>
                         <div class="form-group">
                             <label for="client-address">Client Address</label>
@@ -73,6 +82,25 @@
                             <label for="due-date">Due Date</label>
                             <input type="date" id="due-date">
                         </div>
+                        <div class="form-group">
+                            <label for="tax-rate">Tax Rate (%)</label>
+                            <input type="number" id="tax-rate" placeholder="10" min="0" max="100" step="0.1" value="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="currency">Currency</label>
+                            <select id="currency">
+                                <option value="$">USD ($)</option>
+                                <option value="€">EUR (€)</option>
+                                <option value="£">GBP (£)</option>
+                                <option value="¥">JPY (¥)</option>
+                                <option value="₹">INR (₹)</option>
+                                <option value="₦">NGN (₦)</option>
+                                <option value="R">ZAR (R)</option>
+                                <option value="₱">PHP (₱)</option>
+                                <option value="C$">CAD (C$)</option>
+                                <option value="A$">AUD (A$)</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="panel-section">
@@ -80,7 +108,7 @@
                         <div id="items-container">
                             <div class="item-row">
                                 <input type="text" class="item-desc" placeholder="Description">
-                                <input type="number" class="item-qty" placeholder="Qty" min="1">
+                                <input type="number" class="item-qty" placeholder="Qty" min="1" value="1">
                                 <input type="number" class="item-price" placeholder="Price" step="0.01">
                                 <button class="remove-item">×</button>
                             </div>
@@ -97,6 +125,8 @@
                                 <option value="Credit Card">Credit Card</option>
                                 <option value="PayPal">PayPal</option>
                                 <option value="Cash">Cash</option>
+                                <option value="Debit Card">Debit Card</option>
+                                <option value="Mobile Payment">Mobile Payment</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -107,7 +137,7 @@
 
                     <div class="panel-section">
                         <h3>Design Options</h3>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <label for="color-theme">Color Theme</label>
                             <select id="color-theme">
                                 <option value="#4a6ee0">Blue</option>
@@ -116,7 +146,7 @@
                                 <option value="#9b59b6">Purple</option>
                                 <option value="#f39c12">Orange</option>
                             </select>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label for="font-style">Font Style</label>
                             <select id="font-style">
@@ -126,6 +156,44 @@
                                 <option value="'Times New Roman', serif">Times New Roman</option>
                             </select>
                         </div>
+
+                        <!-- Template Options Section -->
+                        <div class="panel-section">
+                            <h3>Template Options</h3>
+                            <div class="template-options">
+                                <div class="template-thumbnail" data-template="simple">
+                                    <div class="thumbnail-preview simple-theme"></div>
+                                    <span>Simple</span>
+                                </div>
+                                <div class="template-thumbnail" data-template="modern">
+                                    <div class="thumbnail-preview modern-theme"></div>
+                                    <span>Modern</span>
+                                </div>
+                                <div class="template-thumbnail" data-template="elegant">
+                                    <div class="thumbnail-preview elegant-theme"></div>
+                                    <span>Elegant</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Color Selection Section -->
+                        <div class="panel-section">
+                            <h3>Color Options</h3>
+                            <div class="color-options">
+                                <div class="color-option" data-color="#4a6ee0" style="background-color: #4a6ee0;"></div>
+                                <div class="color-option" data-color="#2ecc71" style="background-color: #2ecc71;"></div>
+                                <div class="color-option" data-color="#e74c3c" style="background-color: #e74c3c;"></div>
+                                <div class="color-option" data-color="#9b59b6" style="background-color: #9b59b6;"></div>
+                                <div class="color-option" data-color="#f39c12" style="background-color: #f39c12;"></div>
+                                <div class="color-option" data-color="#1abc9c" style="background-color: #1abc9c;"></div>
+                                <div class="color-option" data-color="#34495e" style="background-color: #34495e;"></div>
+                                <div class="color-option" data-color="#e67e22" style="background-color: #e67e22;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="custom-color">Custom Color</label>
+                                <input type="color" id="custom-color" value="#4a6ee0">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -133,7 +201,7 @@
                     <div class="preview-controls">
                         <button id="download-pdf" class="btn primary">Download PDF</button>
                         <button id="send-email" class="btn secondary">Send via Email</button>
-                        <button id="setup-reminder" class="btn accent">Setup Reminder</button>
+                        <button id="print-invoice" class="btn accent">Print Invoice</button>
                     </div>
                     <div id="invoice-template">
                         <!-- Invoice will be rendered here by JavaScript -->
@@ -154,7 +222,7 @@
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2023 InvoiceGen. All rights reserved.
+                &copy; <span id="current-year"></span> InvoiceGen. All rights reserved.
             </div>
         </div>
     </footer>
@@ -164,4 +232,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
-</html>
+</html>=====================================================================================================================================

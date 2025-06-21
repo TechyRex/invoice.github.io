@@ -1,3 +1,8 @@
+<?php
+session_start();
+include("connect.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +22,7 @@
                     <li><a href="#features">Features</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#benefits">Benefits</a></li>
-                    <li><a href="login.php">Get Started</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -29,17 +34,17 @@
                 <h1>Professional Invoices, Receipts & Automated Reminders</h1>
                 <p>Create beautiful financial documents and schedule payment reminders to streamline your business operations.</p>
                 <div class="cta-buttons">
-                    <a href="login.php" class="btn primary receipt-btn">
+                    <a href="invoice-generator.html" class="btn primary receipt-btn">
                         <span class="receipt-top"></span>
                         Design Invoice
                         <span class="receipt-bottom"></span>
                     </a>
-                    <a href="login.php" class="btn secondary receipt-btn">
+                    <a href="receipt.html" class="btn secondary receipt-btn">
                         <span class="receipt-top"></span>
                         Create Receipt
                         <span class="receipt-bottom"></span>
                     </a>
-                    <a href="login.php" class="btn tertiary receipt-btn">
+                    <a href="your-scheduler.html" class="btn tertiary receipt-btn">
                         <span class="receipt-top"></span>
                         Schedule Reminders
                         <span class="receipt-bottom"></span>

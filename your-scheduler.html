@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Reminders | InvoiceGen</title>
+    <link rel="stylesheet" href="css/scheduler.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">InvoiceGen</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="invoice-generator.html">Invoice Designer</a></li>
+                    <li><a href="#">Save Schedule</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="scheduler">
+        <div class="container">
+            <h1>Invoice Payment Reminders</h1>
+            <p class="subtitle">Schedule calendar reminders for your invoice payments</p>
+            
+            <div class="scheduler-container">
+                <div class="reminder-setup">
+                    <div class="setup-section">
+                        <h2>Invoice Information</h2>
+                        <div class="form-group">
+                            <label for="client-name">Client Name</label>
+                            <input type="text" id="client-name" placeholder="Enter client name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="invoice-number">Invoice #</label>
+                            <input type="text" id="invoice-number" placeholder="Enter invoice number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" id="due-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="due-time">Time</label>
+                            <input type="time" id="due-time" required>
+                        </div>
+                    </div>
+                    
+                    <div class="setup-section">
+                        <h2>Reminder Schedule</h2>
+                        <div class="form-group">
+                            <label for="reminder-type">Reminder Type</label>
+                            <select id="reminder-type">
+                                <option value="before">Before Due Date</option>
+                                <option value="after">After Due Date</option>
+                                <option value="both">Both Before and After</option>
+                            </select>
+                        </div>
+                        
+                        <div id="before-reminder-options" class="reminder-options">
+                            <h3>Before Due Date</h3>
+                            <div class="form-group">
+                                <label for="days-before">Days Before</label>
+                                <input type="number" id="days-before" min="1" max="30" value="3">
+                            </div>
+                            <div class="form-group">
+                                <label for="before-message">Reminder Title</label>
+                                <input type="text" id="before-message" value="Invoice #[Invoice Number] due soon">
+                            </div>
+                        </div>
+                        
+                        <div id="after-reminder-options" class="reminder-options" style="display: none;">
+                            <h3>After Due Date</h3>
+                            <div class="form-group">
+                                <label for="days-after">Days After</label>
+                                <input type="number" id="days-after" min="1" max="30" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="after-message">Reminder Title</label>
+                                <input type="text" id="after-message" value="Invoice #[Invoice Number] overdue">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="setup-section">
+                        <button id="schedule-reminders" class="btn primary">Schedule Reminders</button>
+                    </div>
+                </div>
+                
+                <div class="reminder-preview">
+                    <h2>Calendar Preview</h2>
+                    <div id="calendar"></div>
+                    <div class="scheduled-reminders">
+                        <h3>Scheduled Reminders</h3>
+                        <ul id="reminders-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">InvoiceGen</div>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; <span id="current-year"></span> InvoiceGen. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    <script src="js/calendar-reminders.js"></script>
+</body>
+</html>

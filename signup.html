@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <form id="signup-form">
+    <h2>Sign Up</h2>
+    <input type="email" id="email" placeholder="Email" required><br>
+    <input type="password" id="password" placeholder="Password" required><br>
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+    const supabase = createClient('https://ibchilighnbwqcirujsl.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliY2hpbGlnaG5id3FjaXJ1anNsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNzg5MzMsImV4cCI6MjA2NTY1NDkzM30.01Zd2xmWF3f3QJcOZjI9vBaXtm3NZBxJ2WQbz4PM17A');
+
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const { user, error } = await supabase.auth.signUp({ email, password });
+      if (error) return alert(error.message);
+      alert("Signup successful! Now login.");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>
