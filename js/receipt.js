@@ -198,41 +198,42 @@ document.getElementById('font-style').addEventListener('change', function() {
             </div>
         `;
     } else if (selectedTemplate === 'modern') {
-        receiptHTML = `
-            <div style="${fontStyle}">
-                <div class="receipt-header" style="display: flex; align-items: center; border-left: 4px solid ${selectedColor}; padding-left: 20px; margin-bottom: 30px;">
-                    ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 60px; margin-right: 20px;">` : ''}
-                    <div style="${fontStyle}">
-                        <h2 style="color: ${selectedColor}; margin: 0; ${fontStyle}">${businessName}</h2>
-                        <p style="margin: 5px 0; ${fontStyle}">${businessAddress}</p>
-                        <p style="margin: 5px 0; ${fontStyle}">${businessEmail}<br>${businessPhone}</p>
-                    </div>
+    receiptHTML = `
+        <div style="${fontStyle}">
+            <div class="receipt-header" style="display: flex; align-items: center; border-left: 4px solid ${selectedColor}; padding-left: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 60px; margin-right: 20px; margin-bottom: 10px;">` : ''}
+                <div style="${fontStyle}">
+                    <h2 style="color: ${selectedColor}; margin: 0; ${fontStyle}">${businessName}</h2>
+                    <p style="margin: 5px 0; ${fontStyle}">${businessAddress}</p>
+                    <p style="margin: 5px 0; ${fontStyle}">${businessEmail}<br>${businessPhone}</p>
                 </div>
-                
-                <div class="receipt-meta" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; ${fontStyle}">
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Receipt #</span>
-                        <span class="meta-value" style="${fontStyle}">${receiptNumber}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Date</span>
-                        <span class="meta-value" style="${fontStyle}">${receiptDate}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Payment Method</span>
-                        <span class="meta-value" style="${fontStyle}">${paymentMethod}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Customer</span>
-                        <span class="meta-value" style="${fontStyle}">${customerName}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Email</span>
-                        <span class="meta-value" style="${fontStyle}">${customerEmail}</span>
-                    </div>
+            </div>
+            
+            <div class="receipt-meta" style="margin-bottom: 30px; ${fontStyle}">
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; flex-wrap: wrap;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; min-width: 120px;">Receipt #</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; flex: 1;">${receiptNumber}</span>
                 </div>
-                
-                <table class="receipt-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; flex-wrap: wrap;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; min-width: 120px;">Date</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; flex: 1;">${receiptDate}</span>
+                </div>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; flex-wrap: wrap;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; min-width: 120px;">Payment Method</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; flex: 1;">${paymentMethod}</span>
+                </div>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; flex-wrap: wrap;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; min-width: 120px;">Customer</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; flex: 1;">${customerName}</span>
+                </div>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; flex-wrap: wrap;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; min-width: 120px;">Email</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; flex: 1; word-break: break-all;">${customerEmail}</span>
+                </div>
+            </div>
+            
+            <div style="overflow-x: auto; margin-bottom: 20px;">
+                <table class="receipt-items" style="${fontStyle} width: 100%; min-width: 500px; border-collapse: collapse;">
                     <thead>
                         <tr style="background-color: ${selectedColor}; color: white;">
                             <th style="padding: 12px; text-align: left; ${fontStyle}">Item</th>
@@ -252,19 +253,20 @@ document.getElementById('font-style').addEventListener('change', function() {
                         `).join('')}
                     </tbody>
                 </table>
-                
-                <div class="receipt-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
-                    <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
-                    ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
-                    <p style="font-size: 18px; font-weight: bold;">Total: ${currencySymbol}${total.toFixed(2)}</p>
-                </div>
-                
-                <div class="receipt-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
-                    <p>Thank you for your purchase!</p>
-                    <p style="font-size: 14px; color: #666;">For any questions, please contact ${businessEmail} or ${businessPhone}</p>
-                </div>
             </div>
-        `;
+            
+            <div class="receipt-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
+                <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
+                ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
+                <p style="font-size: 18px; font-weight: bold;">Total: ${currencySymbol}${total.toFixed(2)}</p>
+            </div>
+            
+            <div class="receipt-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
+                <p>Thank you for your purchase!</p>
+                <p style="font-size: 14px; color: #666; word-wrap: break-word;">For any questions, please contact ${businessEmail} or ${businessPhone}</p>
+            </div>
+        </div>
+    `;
     } else if (selectedTemplate === 'elegant') {
         receiptHTML = `
             <div style="${fontStyle}">

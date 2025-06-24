@@ -145,131 +145,132 @@ function updateInvoicePreview() {
     const fontStyle = `font-family: ${selectedFontFamily};`;
     
     // Generate HTML based on template
-    let invoiceHTML = '';
-    
-    if (selectedTemplate === 'simple') {
-        invoiceHTML = `
-            <div style="${fontStyle}">
-                <div class="invoice-header" style="border-bottom: 2px solid ${selectedColor}; margin-bottom: 20px; padding-bottom: 15px;">
-                    ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 80px; margin-bottom: 15px;">` : ''}
-                    <h2 style="color: ${selectedColor}; ${fontStyle}">${businessName}</h2>
-                    <p style="${fontStyle}">${businessAddress}</p>
-                    <p style="${fontStyle}">${businessEmail}<br>${businessPhone}</p>
+let invoiceHTML = '';
+
+if (selectedTemplate === 'simple') {
+    invoiceHTML = `
+        <div style="${fontStyle}">
+            <div class="invoice-header" style="border-bottom: 2px solid ${selectedColor}; margin-bottom: 20px; padding-bottom: 15px;">
+                ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 80px; margin-bottom: 15px;">` : ''}
+                <h2 style="color: ${selectedColor}; ${fontStyle}">${businessName}</h2>
+                <p style="${fontStyle}">${businessAddress}</p>
+                <p style="${fontStyle}">${businessEmail}<br>${businessPhone}</p>
+            </div>
+            
+            <div class="invoice-meta" style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                <div style="${fontStyle}">
+                    <p><strong>Invoice #:</strong> ${invoiceNumber}</p>
+                    <p><strong>Date:</strong> ${invoiceDate}</p>
+                    ${dueDate ? `<p><strong>Due Date:</strong> ${dueDate}</p>` : ''}
+                    <p><strong>Payment Method:</strong> ${paymentMethod}</p>
                 </div>
-                
-                <div class="invoice-meta" style="display: flex; justify-content: space-between; margin-bottom: 30px;">
-                    <div style="${fontStyle}">
-                        <p><strong>Invoice #:</strong> ${invoiceNumber}</p>
-                        <p><strong>Date:</strong> ${invoiceDate}</p>
-                        ${dueDate ? `<p><strong>Due Date:</strong> ${dueDate}</p>` : ''}
-                        <p><strong>Payment Method:</strong> ${paymentMethod}</p>
-                    </div>
-                    <div style="${fontStyle}">
-                        <p><strong>Bill To:</strong></p>
-                        <p>${clientName}</p>
-                        <p>${clientAddress}</p>
-                        <p>${clientEmail}</p>
-                    </div>
-                </div>
-                
-                <table class="invoice-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-                    <thead>
-                        <tr style="background-color: ${selectedColor}; color: #34495e;">
-                            <th style="padding: 12px; text-align: left; ${fontStyle}">Description</th>
-                            <th style="padding: 12px; text-align: center; ${fontStyle}">Qty</th>
-                            <th style="padding: 12px; text-align: right; ${fontStyle}">Price</th>
-                            <th style="padding: 12px; text-align: right; ${fontStyle}">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${items.map(item => `
-                            <tr style="border-bottom: 1px solid #eee;">
-                                <td style="padding: 12px; ${fontStyle}">${item.description}</td>
-                                <td style="padding: 12px; text-align: center; ${fontStyle}">${item.quantity}</td>
-                                <td style="padding: 12px; text-align: right; ${fontStyle}">${currencySymbol}${item.price.toFixed(2)}</td>
-                                <td style="padding: 12px; text-align: right; ${fontStyle}">${currencySymbol}${item.total.toFixed(2)}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-                
-                <div class="invoice-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
-                    <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
-                    ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
-                    <p style="font-size: 18px; font-weight: bold;"><strong>Total: ${currencySymbol}${total.toFixed(2)}</strong></p>
-                </div>
-                
-                ${paymentDetails ? `
-                <div class="payment-info" style="margin-bottom: 20px; ${fontStyle}">
-                    <h3 style="color: ${selectedColor};">Payment Information</h3>
-                    <p>${paymentDetails}</p>
-                </div>
-                ` : ''}
-                
-                <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
-                    <p>Thank you for your business!</p>
-                    <p style="font-size: 14px; color: #666;">${businessName} | ${businessEmail} | ${businessPhone}</p>
+                <div style="${fontStyle}">
+                    <p><strong>Bill To:</strong></p>
+                    <p>${clientName}</p>
+                    <p>${clientAddress}</p>
+                    <p>${clientEmail}</p>
                 </div>
             </div>
-        `;
-    } else if (selectedTemplate === 'modern') {
-        invoiceHTML = `
-            <div style="${fontStyle}">
-                <div class="invoice-header" style="display: flex; align-items: center; border-left: 4px solid ${selectedColor}; padding-left: 20px; margin-bottom: 30px;">
-                    ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 60px; margin-right: 20px;">` : ''}
-                    <div style="${fontStyle}">
-                        <h2 style="color: ${selectedColor}; margin: 0; ${fontStyle}">${businessName}</h2>
-                        <p style="margin: 5px 0; ${fontStyle}">${businessAddress}</p>
-                        <p style="margin: 5px 0; ${fontStyle}">${businessEmail}<br>${businessPhone}</p>
-                    </div>
+            
+            <table class="invoice-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <thead>
+                    <tr style="background-color: ${selectedColor}; color: #34495e;">
+                        <th style="padding: 12px; text-align: left; ${fontStyle}">Description</th>
+                        <th style="padding: 12px; text-align: center; ${fontStyle}">Qty</th>
+                        <th style="padding: 12px; text-align: right; ${fontStyle}">Price</th>
+                        <th style="padding: 12px; text-align: right; ${fontStyle}">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${items.map(item => `
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 12px; ${fontStyle}">${item.description}</td>
+                            <td style="padding: 12px; text-align: center; ${fontStyle}">${item.quantity}</td>
+                            <td style="padding: 12px; text-align: right; ${fontStyle}">${currencySymbol}${item.price.toFixed(2)}</td>
+                            <td style="padding: 12px; text-align: right; ${fontStyle}">${currencySymbol}${item.total.toFixed(2)}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+            
+            <div class="invoice-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
+                <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
+                ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
+                <p style="font-size: 18px; font-weight: bold;"><strong>Total: ${currencySymbol}${total.toFixed(2)}</strong></p>
+            </div>
+            
+            ${paymentDetails ? `
+            <div class="payment-info" style="margin-bottom: 20px; ${fontStyle}">
+                <h3 style="color: ${selectedColor};">Payment Information</h3>
+                <p>${paymentDetails}</p>
+            </div>
+            ` : ''}
+            
+            <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
+                <p>Thank you for your business!</p>
+                <p style="font-size: 14px; color: #666;">${businessName} | ${businessEmail} | ${businessPhone}</p>
+            </div>
+        </div>
+    `;
+} else if (selectedTemplate === 'modern') {
+    invoiceHTML = `
+        <div style="${fontStyle}; max-width: 800px; margin: 0 auto; padding: 20px; box-sizing: border-box;">
+            <div class="invoice-header" style="display: flex; align-items: center; border-left: 4px solid ${selectedColor}; padding-left: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+                ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 60px; flex-shrink: 0;">` : ''}
+                <div style="${fontStyle}; flex: 1; min-width: 250px;">
+                    <h2 style="color: ${selectedColor}; margin: 0; ${fontStyle}; word-wrap: break-word;">${businessName}</h2>
+                    <p style="margin: 5px 0; ${fontStyle}; word-wrap: break-word;">${businessAddress}</p>
+                    <p style="margin: 5px 0; ${fontStyle}; word-wrap: break-word;">${businessEmail}<br>${businessPhone}</p>
                 </div>
-                
-                <div class="invoice-meta" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; ${fontStyle}">
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">INVOICE #</span>
-                        <span class="meta-value" style="${fontStyle}">${invoiceNumber}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Date</span>
-                        <span class="meta-value" style="${fontStyle}">${invoiceDate}</span>
-                    </div>
-                    ${dueDate ? `
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Due Date</span>
-                        <span class="meta-value" style="${fontStyle}">${dueDate}</span>
-                    </div>
-                    ` : ''}
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Payment Method</span>
-                        <span class="meta-value" style="${fontStyle}">${paymentMethod}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Bill To</span>
-                        <span class="meta-value" style="${fontStyle}">${clientName}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Email</span>
-                        <span class="meta-value" style="${fontStyle}">${clientEmail}</span>
-                    </div>
-                    <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0;">
-                        <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}">Address</span>
-                        <span class="meta-value" style="${fontStyle}">${clientAddress}</span>
-                    </div>
+            </div>
+            
+            <div class="invoice-meta" style="margin-bottom: 30px; ${fontStyle};">
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">INVOICE #</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${invoiceNumber}</span>
                 </div>
-                
-                <table class="invoice-items" style="${fontStyle} width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Date</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${invoiceDate}</span>
+                </div>
+                ${dueDate ? `
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Due Date</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${dueDate}</span>
+                </div>
+                ` : ''}
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Payment Method</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${paymentMethod}</span>
+                </div>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Bill To</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${clientName}</span>
+                </div>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Email</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; overflow-wrap: break-word; flex: 1;">${clientEmail}</span>
+                </div>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Address</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${clientAddress}</span>
+                </div>
+            </div>
+            
+            <div style="overflow-x: auto; margin-bottom: 20px;">
+                <table class="invoice-items" style="${fontStyle}; width: 100%; border-collapse: collapse; min-width: 600px;">
                     <thead>
                         <tr style="background-color: ${selectedColor}; color: white;">
-                            <th style="padding: 12px; text-align: left; ${fontStyle}">Item</th>
-                            <th style="padding: 12px; text-align: center; ${fontStyle}">Qty</th>
-                            <th style="padding: 12px; text-align: right; ${fontStyle}">Price</th>
-                            <th style="padding: 12px; text-align: right; ${fontStyle}">Total</th>
+                            <th style="padding: 12px; text-align: left; ${fontStyle};">Item</th>
+                            <th style="padding: 12px; text-align: center; ${fontStyle}; min-width: 60px;">Qty</th>
+                            <th style="padding: 12px; text-align: right; ${fontStyle}; min-width: 80px;">Price</th>
+                            <th style="padding: 12px; text-align: right; ${fontStyle}; min-width: 80px;">Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${items.map(item => `
                             <tr style="border-bottom: 1px solid #eee;">
-                                <td style="padding: 12px; ${fontStyle}">${item.description}</td>
+                                <td style="padding: 12px; ${fontStyle}; word-wrap: break-word; overflow-wrap: break-word;">${item.description}</td>
                                 <td style="padding: 12px; text-align: center; ${fontStyle}">${item.quantity}</td>
                                 <td style="padding: 12px; text-align: right; ${fontStyle}">${currencySymbol}${item.price.toFixed(2)}</td>
                                 <td style="padding: 12px; text-align: right; ${fontStyle}">${currencySymbol}${item.total.toFixed(2)}</td>
@@ -277,26 +278,28 @@ function updateInvoicePreview() {
                         `).join('')}
                     </tbody>
                 </table>
-                
-                <div class="invoice-total" style="text-align: right; margin-bottom: 20px; ${fontStyle}">
-                    <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
-                    ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
-                    <p style="font-size: 18px; font-weight: bold;">Total: ${currencySymbol}${total.toFixed(2)}</p>
-                </div>
-                
-                ${paymentDetails ? `
-                <div class="payment-info" style="margin-bottom: 20px; ${fontStyle}">
-                    <h3 style="color: ${selectedColor};">Payment Instructions</h3>
-                    <p>${paymentDetails}</p>
-                </div>
-                ` : ''}
-                
-                <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}">
-                    <p>Thank you for your business!</p>
-                    <p style="font-size: 14px; color: #666;">For any questions, please contact ${businessEmail} or ${businessPhone}</p>
-                </div>
             </div>
-        `;
+            
+            <div class="invoice-total" style="text-align: right; margin-bottom: 20px; ${fontStyle};">
+                <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
+                ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
+                <p style="font-size: 18px; font-weight: bold;">Total: ${currencySymbol}${total.toFixed(2)}</p>
+            </div>
+            
+            ${paymentDetails ? `
+            <div class="payment-info" style="margin-bottom: 20px; ${fontStyle};">
+                <h3 style="color: ${selectedColor};">Payment Instructions</h3>
+                <p style="word-wrap: break-word; overflow-wrap: break-word;">${paymentDetails}</p>
+            </div>
+            ` : ''}
+            
+            <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle};">
+                <p>Thank you for your business!</p>
+                <p style="font-size: 14px; color: #666; word-wrap: break-word; overflow-wrap: break-word;">For any questions, please contact ${businessEmail} or ${businessPhone}</p>
+            </div>
+        </div>
+    `;
+
     } else if (selectedTemplate === 'elegant') {
         invoiceHTML = `
             <div style="${fontStyle}">
