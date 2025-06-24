@@ -216,86 +216,86 @@ if (selectedTemplate === 'simple') {
     invoiceHTML = `
         <div style="${fontStyle}; max-width: 800px; margin: 0 auto; padding: 20px; box-sizing: border-box;">
             <div class="invoice-header" style="display: flex; align-items: center; border-left: 4px solid ${selectedColor}; padding-left: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
-                ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 60px; flex-shrink: 0;">` : ''}
-                <div style="${fontStyle}; flex: 1; min-width: 250px;">
-                    <h2 style="color: ${selectedColor}; margin: 0; ${fontStyle}; word-wrap: break-word;">${businessName}</h2>
+                ${logoPreviewUrl ? `<img src="${logoPreviewUrl}" alt="${businessName}" style="max-height: 60px; flex-shrink: 0; margin-left: 0;">` : ''}
+                <div style="${fontStyle}; flex: 1; min-width: 250px; margin-left: 0;">
+                    <h2 style="color: ${selectedColor}; margin: 0 0 5px 0; ${fontStyle}; word-wrap: break-word;">${businessName}</h2>
                     <p style="margin: 5px 0; ${fontStyle}; word-wrap: break-word;">${businessAddress}</p>
                     <p style="margin: 5px 0; ${fontStyle}; word-wrap: break-word;">${businessEmail}<br>${businessPhone}</p>
                 </div>
             </div>
             
-            <div class="invoice-meta" style="margin-bottom: 30px; ${fontStyle};">
-                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
-                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">INVOICE #</span>
-                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${invoiceNumber}</span>
+            <div class="invoice-meta" style="margin: 0 0 30px 0; ${fontStyle};">
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px; margin: 0;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px; margin-left: 0;">INVOICE #</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1; margin-right: 0;">${invoiceNumber}</span>
                 </div>
-                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
-                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Date</span>
-                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${invoiceDate}</span>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px; margin: 0;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px; margin-left: 0;">Date</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1; margin-right: 0;">${invoiceDate}</span>
                 </div>
                 ${dueDate ? `
-                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
-                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Due Date</span>
-                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${dueDate}</span>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px; margin: 0;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px; margin-left: 0;">Due Date</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1; margin-right: 0;">${dueDate}</span>
                 </div>
                 ` : ''}
-                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
-                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Payment Method</span>
-                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${paymentMethod}</span>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px; margin: 0;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px; margin-left: 0;">Payment Method</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1; margin-right: 0;">${paymentMethod}</span>
                 </div>
-                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
-                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Bill To</span>
-                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${clientName}</span>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px; margin: 0;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px; margin-left: 0;">Bill To</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1; margin-right: 0;">${clientName}</span>
                 </div>
-                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
-                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Email</span>
-                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; overflow-wrap: break-word; flex: 1;">${clientEmail}</span>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px; margin: 0;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px; margin-left: 0;">Email</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; overflow-wrap: break-word; flex: 1; margin-right: 0;">${clientEmail}</span>
                 </div>
-                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px;">
-                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px;">Address</span>
-                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1;">${clientAddress}</span>
+                <div class="meta-row" style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; align-items: flex-start; gap: 10px; margin: 0;">
+                    <span class="meta-label" style="color: ${selectedColor}; font-weight: bold; ${fontStyle}; flex-shrink: 0; min-width: 100px; margin-left: 0;">Address</span>
+                    <span class="meta-value" style="${fontStyle}; text-align: right; word-wrap: break-word; flex: 1; margin-right: 0;">${clientAddress}</span>
                 </div>
             </div>
             
-            <div style="overflow-x: auto; margin-bottom: 20px;">
-                <table class="invoice-items" style="${fontStyle}; width: 100%; border-collapse: collapse; min-width: 600px;">
+            <div style="overflow-x: auto; margin: 0 0 20px 0;">
+                <table class="invoice-items" style="${fontStyle}; width: 100%; border-collapse: collapse; min-width: 600px; margin: 0;">
                     <thead>
                         <tr style="background-color: ${selectedColor}; color: white;">
-                            <th style="padding: 12px; text-align: left; ${fontStyle};">Item</th>
-                            <th style="padding: 12px; text-align: center; ${fontStyle}; min-width: 60px;">Qty</th>
-                            <th style="padding: 12px; text-align: right; ${fontStyle}; min-width: 80px;">Price</th>
-                            <th style="padding: 12px; text-align: right; ${fontStyle}; min-width: 80px;">Total</th>
+                            <th style="padding: 12px; text-align: left; ${fontStyle}; margin: 0;">Item</th>
+                            <th style="padding: 12px; text-align: center; ${fontStyle}; min-width: 60px; margin: 0;">Qty</th>
+                            <th style="padding: 12px; text-align: right; ${fontStyle}; min-width: 80px; margin: 0;">Price</th>
+                            <th style="padding: 12px; text-align: right; ${fontStyle}; min-width: 80px; margin: 0;">Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         ${items.map(item => `
-                            <tr style="border-bottom: 1px solid #eee;">
-                                <td style="padding: 12px; ${fontStyle}; word-wrap: break-word; overflow-wrap: break-word;">${item.description}</td>
-                                <td style="padding: 12px; text-align: center; ${fontStyle}">${item.quantity}</td>
-                                <td style="padding: 12px; text-align: right; ${fontStyle}">${currencySymbol}${item.price.toFixed(2)}</td>
-                                <td style="padding: 12px; text-align: right; ${fontStyle}">${currencySymbol}${item.total.toFixed(2)}</td>
+                            <tr style="border-bottom: 1px solid #eee; margin: 0;">
+                                <td style="padding: 12px; ${fontStyle}; word-wrap: break-word; overflow-wrap: break-word; margin: 0;">${item.description}</td>
+                                <td style="padding: 12px; text-align: center; ${fontStyle}; margin: 0;">${item.quantity}</td>
+                                <td style="padding: 12px; text-align: right; ${fontStyle}; margin: 0;">${currencySymbol}${item.price.toFixed(2)}</td>
+                                <td style="padding: 12px; text-align: right; ${fontStyle}; margin: 0;">${currencySymbol}${item.total.toFixed(2)}</td>
                             </tr>
                         `).join('')}
                     </tbody>
                 </table>
             </div>
             
-            <div class="invoice-total" style="text-align: right; margin-bottom: 20px; ${fontStyle};">
-                <p>Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
-                ${taxRate > 0 ? `<p>Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
-                <p style="font-size: 18px; font-weight: bold;">Total: ${currencySymbol}${total.toFixed(2)}</p>
+            <div class="invoice-total" style="text-align: right; margin: 0 0 20px 0; ${fontStyle};">
+                <p style="margin: 5px 0;">Subtotal: ${currencySymbol}${subtotal.toFixed(2)}</p>
+                ${taxRate > 0 ? `<p style="margin: 5px 0;">Tax (${taxRate}%): ${currencySymbol}${tax.toFixed(2)}</p>` : ''}
+                <p style="font-size: 18px; font-weight: bold; margin: 10px 0 0 0;">Total: ${currencySymbol}${total.toFixed(2)}</p>
             </div>
             
             ${paymentDetails ? `
-            <div class="payment-info" style="margin-bottom: 20px; ${fontStyle};">
-                <h3 style="color: ${selectedColor};">Payment Instructions</h3>
-                <p style="word-wrap: break-word; overflow-wrap: break-word;">${paymentDetails}</p>
+            <div class="payment-info" style="margin: 0 0 20px 0; ${fontStyle};">
+                <h3 style="color: ${selectedColor}; margin: 0 0 10px 0;">Payment Instructions</h3>
+                <p style="word-wrap: break-word; overflow-wrap: break-word; margin: 0;">${paymentDetails}</p>
             </div>
             ` : ''}
             
-            <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle};">
-                <p>Thank you for your business!</p>
-                <p style="font-size: 14px; color: #666; word-wrap: break-word; overflow-wrap: break-word;">For any questions, please contact ${businessEmail} or ${businessPhone}</p>
+            <div class="invoice-footer" style="text-align: center; border-top: 1px solid #eee; padding-top: 15px; ${fontStyle}; margin: 0;">
+                <p style="margin: 0 0 5px 0;">Thank you for your business!</p>
+                <p style="font-size: 14px; color: #666; word-wrap: break-word; overflow-wrap: break-word; margin: 0;">For any questions, please contact ${businessEmail} or ${businessPhone}</p>
             </div>
         </div>
     `;
